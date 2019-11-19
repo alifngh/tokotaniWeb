@@ -28,7 +28,7 @@
         <hr class="sidebar-divider" style="margin-bottom: 5px">
 
         <li class="nav-item" id="bukti">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{route('produk')}}">
                 <table>
                     <tr>
                         <th><i class="fas fa-fw fa-edit"></i></th>

@@ -35,11 +35,11 @@
                             <label for="hargaProduk" class="text-gray-600"
                                    style="font-size: 14px; padding-top: 2% ">Harga Produk :</label>
                             <input type="text"
-                                   class="form-control form-control-user @error('deskripsiProduk') is-invalid @enderror"
+                                   class="form-control form-control-user @error('hargaProduk') is-invalid @enderror"
                                    name="hargaProduk"
                                    id="hargaProduk"
                                    value="">
-                            @error('deskripsiProduk')
+                            @error('hargaProduk')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -48,10 +48,22 @@
                             <label for="kategoriProduk" class="text-gray-600"
                                    style="font-size: 14px; padding-top: 2% ">Kategori Produk : </label>
                             <select class="form-control form-control-user" name="kategoriProduk" id="kategoriProduk">
-                                <option value="Bibit">Bibit Tanaman</option>
+                                <option value="Bibit">Bibit</option>
                                 <option value="Pupuk dan Obat">Pupuk dan Obat</option>
                                 <option value="Alat">Alat Pertanian</option>
+                                <option value="Hasil Tani">Hasil Pertanian</option>
                             </select>
+
+                            <label for="jumlahProduk" class="text-gray-600"
+                                   style="font-size: 14px; padding-top: 2% ">Jumlah Produk : </label>
+                            <input type="number"
+                                   class="form-control form-control-user @error('jumlahProduk') is-invalid @enderror"
+                                   name="jumlahProduk">
+                            @error('jumlahProduk')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
 
                             <label for="deskripsiProduk" class="text-gray-600"
                                    style="font-size: 14px; padding-top: 2% ">Deskripsi Produk : </label>
@@ -89,3 +101,4 @@
         </div>
     </div>
 @endsection
+

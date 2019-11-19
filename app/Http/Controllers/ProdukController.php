@@ -33,15 +33,15 @@ class ProdukController extends Controller
             "hargaProduk" => "required",
             "kategoriProduk" => "required",
             "deskripsiProduk" => "required",
-            "gambarProduk" => "required|file:1|max:2000"
+            "gambarProduk" => "required|file:1|max:2000|mimes:png,jpeg"
         ])->validate();
 
         $namaStorage = "";
         if ($request->file('gambarProduk')) {
             $filenama = $request->file('gambarProduk')->store('image','public');
             $namaStorage = basename($filenama);
-
         }
+
         //Mulai ke firebase
         $serviceAccount = ServiceAccount::fromJsonFile(__DIR__ . '/secret/tokotani-f616f-b9b5e7917895.json');
         $firebase = (new Factory)
@@ -55,19 +55,31 @@ class ProdukController extends Controller
         $uri = $storage->getBucket()->object('produk/'."$namaStorage");
         $uri->update(['acl' => []], ['predefinedAcl' => 'PUBLICREAD']);
 
-
         $database = $firebase->getDatabase();
 
         $table = $database->getReference('produk');
         $produkId = $table->push()->getKey();
         $table->getChild($produkId)->set([
+            'id_produk' => $produkId,
             'nama_produk' => $request->get('namaProduk'),
             'harga_produk' => $request->get('hargaProduk'),
             'kategori_produk' => $request->get('kategoriProduk'),
+            'tersedia' => $request->get('jumlahProduk'),
             'deskripsi' => $request->get('deskripsiProduk'),
             'url_gambar' => 'https://storage.googleapis.com/tokotani-f616f.appspot.com/produk/'."$namaStorage"
         ]);
 
         return redirect()->route('produk');
+    }
+
+    public function deleteProduk($id){
+        $serviceAccount = ServiceAccount::fromJsonFile(__DIR__ . '/secret/tokotani-f616f-b9b5e7917895.json');
+        $firebase = (new Factory)
+            ->withServiceAccount($serviceAccount)
+            ->create();
+        $database = $firebase->getDatabase();
+        $table = $database->getReference('produk');
+        $xx = $table->getChild($id)->remove();
+        echo $xx;
     }
 }

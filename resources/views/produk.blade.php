@@ -13,7 +13,6 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <div class="table-responsive">
-
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
                                    style="margin-bottom: 5px">
                                 <thead>
@@ -21,7 +20,9 @@
                                     <th>Nama Produk</th>
                                     <th>Harga</th>
                                     <th>Kategori</th>
+                                    <th>Jumlah Barang</th>
                                     <th>Deskripsi</th>
+                                    <th>Gambar</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
@@ -31,10 +32,12 @@
                                         <td>{{$value['nama_produk']}}</td>
                                         <td>{{$value['harga_produk']}}</td>
                                         <td>{{$value['kategori_produk']}}</td>
+                                        <td>{{$value['tersedia']}}</td>
+                                        <td>{{$value['deskripsi']}}</td>
                                         <td><img src="{{$value['url_gambar']}}" style="width: 50px; height: 50px"></td>
                                         <td>
                                             <center>
-                                                <a class="btn btn-danger btn-icon-split">
+                                                <a class="btn btn-danger btn-icon-split" href="{{route('delete',['id'=>$value['id_produk']])}}">
                                                 <span class="icon text-white">
                                                     <i class="fas fa-times"></i>
                                                 </span>
@@ -58,4 +61,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script_tabel')
+    <script src="{{asset('front/js/demo/datatables-demo.js')}}"></script>
 @endsection
